@@ -1,76 +1,35 @@
-// import React, { useState } from "react";
-// import { useSelector, useDispatch } from "react-redux";
-// import { addTodo, removeTodo } from "./TotoSlice";
-
-// function TotoApp() {
-//   const [task, setTask] = useState("");
-//   const todos = useSelector((state) => state.todos);
-//   const dispatch = useDispatch();
-
-//   const handleAdd = () => {
-//     if (task.trim() !== "") {
-//       dispatch(addTodo(task));
-//       setTask("");
-//     }
-//   };
-//   return (
-//     <div>
-//       <h1>Todo List</h1>
-//       <input
-//         type="text"
-//         placeholder="Enter new item"
-//         value={task}
-//         onChange={(e) => setTask(e.target.value)}
-//       />
-//       <button onClick={handleAdd}>Add</button>
-
-//       <ul>
-//         {todos.map((t, index) => (
-//           <li key={index}>
-//             {t.text}
-//            <button onClick={()=>dispatch(removeTodo(index))} > delt</button>
-//           </li>
-//         ))}
-//       </ul>
-//     </div>
-//   );
-// }
-
-// export default TotoApp;
-
-import { useDispatch, useSelector } from "react-redux";
-import { addTodo,removeTodo } from "./TotoSlice";
-
 import React, { useState } from 'react'
-
+import { addTodos, removeTodo,increment,decrement } from './TotoSlice'
+import { useSelector, useDispatch } from 'react-redux'
 function TotoApp() {
-    const [task, setTask]=useState('')
-    const todos = useSelector((state)=>state.todos)
+    const [task, setTaske] = useState("");
+    const todos = useSelector((state) => state.todos);
+    const count = useSelector((state) => state.counter.value);
     const dispatch = useDispatch()
-    const handle = () => {
-    if (task.trim() !== "") {
-      dispatch(addTodo(task));
-      setTask("");
+    const handle =()=>{
+         dispatch(addTodos(task))
     }
-  };
-  return (
-    <div>
-      
-      <h1>Your todos</h1>
-      <input type="text" value={task} placeholder="enter new list:" onChange={(e)=>setTask(e.target.value)}/>
-      <button onClick={handle}>add</button>
-      <ul>
-        {
-            todos.map((t,index)=>(
-           
-                    <li key={index}>{t.text}<button onClick={()=>dispatch(removeTodo(index))}>delt</button></li>
-                  
+    return (
+        <div>
+          <h1>todoList</h1>
+          <input type="text" placeholder='enter your list' value={task} onChange={(e)=>setTaske(e.target.value)}/>
+          <button onClick={handle}>add</button>
+          <ul>
+            {
                 
-            ))
-        }
-      </ul>
-    </div>
-  )
+                todos.map((t,index)=>(
+                    <li key={index}>
+                          {t.text}
+                          <button onClick={()=>dispatch(removeTodo(index))}>delt</button>
+                    </li>
+                ))
+            }
+          </ul>
+          <h1>{count}</h1>
+          <button onClick={() => dispatch(increment())}>+</button>
+          <button onClick={() => dispatch(decrement())}>-</button>
+        </div>
+    )
 }
 
 export default TotoApp

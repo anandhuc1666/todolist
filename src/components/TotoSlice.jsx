@@ -1,34 +1,25 @@
-// import { createSlice } from "@reduxjs/toolkit";
-
-// const todoSlice = createSlice({
-//     name:'todo',
-//     initialState:[],
-//     reducers:{
-//         addTodo:(state,action)=>{
-//          state.push({text:action.payload})
-//         },
-//         removeTodo:(state,action)=>{
-//             // return state.filter((t)=>t.id!==action.payload)
-//             state.splice(action.payload, 1);
-//         }
-//     }
-// })
-// export const {addTodo,removeTodo} = todoSlice.actions;
-// export default todoSlice.reducer;
 import { createSlice } from "@reduxjs/toolkit";
-
 const todoSlice = createSlice({
-    name:'todo',
-   initialState: [],
+    name:'todos',
+    initialState:[],
     reducers:{
-        addTodo:(state,action)=>{
+        addTodos:(state,action)=>{
             state.push({text:action.payload})
         },
         removeTodo:(state,action)=>{
             state.splice(action.payload,1)
-            
         }
     }
 })
-export const {addTodo,removeTodo} = todoSlice.actions;
-export default todoSlice.reducer;
+const countSlice = createSlice({
+    name:'counter',
+    initialState:{value:0},
+    reducers:{
+       increment:(state)=>{state.value +=1},
+        decrement:(state)=>{state.value -=1}
+    }
+})
+export const {addTodos,removeTodo} = todoSlice.actions;
+export const {increment,decrement} =countSlice.actions;
+export const todoReducer = todoSlice.reducer;
+export const countReducer = countSlice.reducer;
